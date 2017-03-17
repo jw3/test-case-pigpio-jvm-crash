@@ -7,7 +7,7 @@ import java.nio.*;
 import org.bytedeco.javacpp.*;
 import org.bytedeco.javacpp.annotation.*;
 
-public class pigpio extends org.bytedeco.javacpp.presets.pigpio {
+public class pigpio extends com.github.jw3.pigpio.presets.pigpio {
     static { Loader.load(); }
 
 // Parsed from pigpio.h
