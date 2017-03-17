@@ -11,10 +11,16 @@ import scala.concurrent.duration.Duration
 object Boot extends App {
   implicit val system = ActorSystem("crash-test")
 
+  val pin = args.headOption.map(_.toInt).getOrElse(1)
+
   pigpio.gpioInitialise()
 
   val a = system.actorOf(Props[Receiver])
   val l = new foo(a)
+
+  println(s"adding listener, pin $pin")
+  pigpio.gpioSetAlertFunc(pin, l)
+  println("added listener")
 
   Await.ready(system.whenTerminated, Duration.Inf)
 }
