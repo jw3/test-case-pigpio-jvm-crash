@@ -1,7 +1,8 @@
 package com.github.jw3.pigpio
 
 import akka.actor.{Actor, ActorRef, ActorSystem, Props}
-import com.github.jw3.pigpio.pigpio.gpioAlertFunc_t
+import org.bytedeco.javacpp.pigpio
+import org.bytedeco.javacpp.pigpio.gpioAlertFunc_t
 
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration

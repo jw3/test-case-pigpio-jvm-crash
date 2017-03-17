@@ -1,4 +1,4 @@
-package com.github.jw3.pigpio.presets;
+package org.bytedeco.javacpp.presets;
 
 import org.bytedeco.javacpp.annotation.Platform;
 import org.bytedeco.javacpp.annotation.Properties;
