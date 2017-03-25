@@ -62,7 +62,7 @@ static void* pthAlertThread(void* x)
 
   while(1) {
     int i = 0;
-    int t = getMicrotime();
+    long t = getMicrotime();
     for(; i<PI_MAX_GPIO; ++i) {
       if(0 != callbacks[i])
         call(i, 0, t, callbacks[i], env);
