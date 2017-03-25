@@ -9,7 +9,7 @@
 jobject callbacks[PI_MAX_GPIO];
 
 long getMicrotime();
-void call(int, int, int, jobject, JNIEnv*);
+void call(int, int, long, jobject, JNIEnv*);
 
 JNIEXPORT void JNICALL Java_com_github_jw3_ww_MockPigpio_00024_initialize
   (JNIEnv* env, jobject o)
@@ -25,15 +25,15 @@ JNIEXPORT void JNICALL Java_com_github_jw3_ww_MockPigpio_00024_addCallback
 }
 
 JNIEXPORT void JNICALL Java_com_github_jw3_ww_MockPigpio_00024_inject
-  (JNIEnv* env, jobject o, jint gpio, jint level)
+  (JNIEnv* env, jobject o, jint gpio, jlong level)
 {
-  call(gpio, level, 1, callbacks[gpio], env);
+  call(gpio, level, getMicrotime(), callbacks[gpio], env);
 }
 
-void call(int p, int l, int t, jobject cb, JNIEnv* env)
+void call(int p, int l, long t, jobject cb, JNIEnv* env)
 {
   jclass cls = (*env)->GetObjectClass(env, cb);
-  jmethodID mid = (*env)->GetMethodID(env, cls, "call", "(III)V");
+  jmethodID mid = (*env)->GetMethodID(env, cls, "call", "(IIJ)V");
   (*env)->CallVoidMethod(env, cb, mid, p, l, t);
 }
 

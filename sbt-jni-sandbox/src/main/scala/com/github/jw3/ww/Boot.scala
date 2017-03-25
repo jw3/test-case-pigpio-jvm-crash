@@ -2,17 +2,14 @@ package com.github.jw3.ww
 
 
 object Boot extends App {
+  // initialize the library
   MockPigpio.initialize()
 
-  //  val cb = new Callback {
-  //    def call(gpio: Int, level: Int, tick: Long) = println("Called")
-  //  }
-  val foo = new Foo
+  // add a callback
+  MockPigpio.addCallback(1, new Callback {
+    def call(gpio: Int, level: Int, tick: Long) = println(s"Called $gpio $level $tick")
+  })
 
-  MockPigpio.addCallback(1, foo)
+  // simulate a gpio event
   MockPigpio.inject(1, 1)
-}
-
-class Foo extends Callback {
-  def call(gpio: Int, level: Int, tick: Int) = println("Called")
 }
