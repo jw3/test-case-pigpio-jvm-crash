@@ -13,8 +13,8 @@ lazy val commonSettings = Seq(
     "-language:postfixOps",
     "-language:implicitConversions",
 
-    "-Ywarn-unused-import",
-    "-Xfatal-warnings",
+    //"-Ywarn-unused-import", // JniNative plugin doesnt like this - "Unused import"
+    //"-Xfatal-warnings",     // JniNative plugin doesnt like this - Deprecation warning on ProcessBuilder.lines
     "-Xlint:_"
   ),
   resolvers += Resolver.mavenLocal
@@ -29,10 +29,19 @@ lazy val commonLibraries = {
 
 lazy val `white-whale` =
   project.in(file("."))
-  .aggregate(`javacpp-test-case`)
+  .aggregate(`javacpp-test-case`, `sbt-jni-sandbox`)
   .settings(commonSettings: _*)
 
 lazy val `javacpp-test-case` =
   project.in(file("javacpp-test-case"))
   .settings(commonSettings: _*)
   .settings(libraryDependencies ++= commonLibraries)
+
+lazy val `sbt-jni-sandbox` =
+  project.in(file("sbt-jni-sandbox"))
+  .settings(commonSettings: _*)
+  .settings(
+    libraryDependencies ++= commonLibraries,
+    target in javah := baseDirectory.value / "src" / "native" / "include"
+  )
+  .enablePlugins(JniNative)
