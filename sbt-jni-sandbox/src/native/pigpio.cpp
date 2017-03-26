@@ -1,4 +1,4 @@
-#include <string>
+#include <unistd.h>
 #include <string.h>
 #include <pthread.h>
 #include <sys/time.h>
@@ -67,5 +67,6 @@ static void* pthAlertThread(void* x)
       if(callbacks[i])
         call(i, 0, t, callbacks[i], env);
     }
+    usleep(1);
   }
 }
