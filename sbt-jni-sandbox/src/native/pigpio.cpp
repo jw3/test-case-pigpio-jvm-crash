@@ -1,8 +1,9 @@
-#include <strings.h>
-#include <jni.h>
-#include <sys/time.h>
+#include <string>
+#include <string.h>
 #include <pthread.h>
-#include <stdio.h>
+#include <sys/time.h>
+
+#include <jni.h>
 
 #include "com_github_jw3_ww_MockPigpio__.h"
 
@@ -32,8 +33,8 @@ JNIEXPORT void JNICALL Java_com_github_jw3_ww_MockPigpio_00024_initialize
 JNIEXPORT void JNICALL Java_com_github_jw3_ww_MockPigpio_00024_addCallback
   (JNIEnv* env, jobject o, jint gpio, jobject cb)
 {
-  if (callbacks[gpio]) (*env)->DeleteGlobalRef(env, callbacks[gpio]);
-  callbacks[gpio] = (*env)->NewGlobalRef(env, cb);
+  if (callbacks[gpio]) env->DeleteGlobalRef(callbacks[gpio]);
+  callbacks[gpio] = env->NewGlobalRef(cb);
 }
 
 JNIEXPORT void JNICALL Java_com_github_jw3_ww_MockPigpio_00024_inject
@@ -44,9 +45,9 @@ JNIEXPORT void JNICALL Java_com_github_jw3_ww_MockPigpio_00024_inject
 
 void call(int p, int l, long t, jobject cb, JNIEnv* env)
 {
-  jclass cls = (*env)->GetObjectClass(env, cb);
-  jmethodID mid = (*env)->GetMethodID(env, cls, "call", "(IIJ)V");
-  (*env)->CallVoidMethod(env, cb, mid, p, l, t);
+  jclass cls = env->GetObjectClass(cb);
+  jmethodID mid = env->GetMethodID(cls, "call", "(IIJ)V");
+  env->CallVoidMethod(cb, mid, p, l, t);
 }
 
 long getMicrotime() {
@@ -58,14 +59,13 @@ long getMicrotime() {
 static void* pthAlertThread(void* x)
 {
   JNIEnv* env = 0;
-  (*pthread_jvm)->AttachCurrentThread(pthread_jvm, (void**) &env, NULL);
+  pthread_jvm->AttachCurrentThread((void**)&env, NULL);
 
   while(1) {
-    int i = 0;
     long t = getMicrotime();
-    for(; i<PI_MAX_GPIO; ++i) {
-      if(0 != callbacks[i])
+    for(int i = 0; i<PI_MAX_GPIO; ++i) {
+      if(callbacks[i])
         call(i, 0, t, callbacks[i], env);
-     }
+    }
   }
 }
