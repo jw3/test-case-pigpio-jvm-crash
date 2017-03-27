@@ -38,7 +38,7 @@ JNIEXPORT void JNICALL Java_com_github_jw3_ww_MockPigpio_00024_addCallback
 }
 
 JNIEXPORT void JNICALL Java_com_github_jw3_ww_MockPigpio_00024_inject
-  (JNIEnv* env, jobject o, jint gpio, jlong level)
+  (JNIEnv* env, jobject o, jint gpio, jint level)
 {
   call(gpio, level, getMicrotime(), callbacks[gpio], env);
 }

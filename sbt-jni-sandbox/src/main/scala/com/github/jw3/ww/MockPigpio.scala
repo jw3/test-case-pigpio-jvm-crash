@@ -6,5 +6,5 @@ import ch.jodersky.jni.nativeLoader
 object MockPigpio {
   @native def initialize()
   @native def addCallback(gpio: Int, cb: Callback)
-  @native def inject(gpio: Int, level: Long)
+  @native def inject(gpio: Int, level: Int)
 }
