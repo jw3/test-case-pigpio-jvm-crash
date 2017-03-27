@@ -2,7 +2,7 @@
 #include <string.h>
 #include <pthread.h>
 #include <sys/time.h>
-
+#include <stdint.h>
 #include <jni.h>
 
 #include "com_github_jw3_ww_MockPigpio__.h"
@@ -14,8 +14,8 @@ static JavaVM* pthread_jvm = NULL;
 
 jobject callbacks[PI_MAX_GPIO];
 
-long getMicrotime();
-void call(int, int, long, jobject, JNIEnv*);
+uint32_t getMicrotime();
+void call(int, int, uint32_t, jobject, JNIEnv*);
 static void* pthAlertThread(void*);
 
 JNIEXPORT void JNICALL Java_com_github_jw3_ww_MockPigpio_00024_initialize
@@ -43,17 +43,17 @@ JNIEXPORT void JNICALL Java_com_github_jw3_ww_MockPigpio_00024_inject
   call(gpio, level, getMicrotime(), callbacks[gpio], env);
 }
 
-void call(int p, int l, long t, jobject cb, JNIEnv* env)
+void call(int p, int l, uint32_t t, jobject cb, JNIEnv* env)
 {
   jclass cls = env->GetObjectClass(cb);
   jmethodID mid = env->GetMethodID(cls, "call", "(IIJ)V");
   env->CallVoidMethod(cb, mid, p, l, t);
 }
 
-long getMicrotime() {
+uint32_t getMicrotime() {
 	struct timeval currentTime;
 	gettimeofday(&currentTime, NULL);
-	return currentTime.tv_sec * (int)1e6 + currentTime.tv_usec;
+	return currentTime.tv_sec * (int)1E6 + currentTime.tv_usec;
 }
 
 static void* pthAlertThread(void* x)
@@ -62,7 +62,7 @@ static void* pthAlertThread(void* x)
   pthread_jvm->AttachCurrentThread((void**)&env, NULL);
 
   while(1) {
-    long t = getMicrotime();
+    uint32_t t = getMicrotime();
     for(int i = 0; i<PI_MAX_GPIO; ++i) {
       if(callbacks[i])
         call(i, 0, t, callbacks[i], env);
