@@ -14,7 +14,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 #
 project (pigpio-jni)
 set(PROJECT_VERSION_MAJOR 0)
-set(PROJECT_VERSION_MINOR 0)
+set(PROJECT_VERSION_MINOR 1)
 set(PROJECT_VERSION_PATCH 0)
 
 message (STATUS "===================== ${CMAKE_MODULE_PATH} ========================")
