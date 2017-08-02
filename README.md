@@ -16,7 +16,7 @@ ensuing executions result in sigsev within shorter time period
 - various compiler args both generic and tuned for pi
 - pi 2 and 3
 - javacpp, jna
-- with jni globals added to pigpio (link)
+- with jni globals added to pigpio [link](https://github.com/jw3/pigpio/tree/jni-pigpio)
 - akka, rxscala, (also plain old callback, i think)
 - pigpio as java or scala lib
 
