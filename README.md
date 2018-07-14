@@ -1,4 +1,4 @@
-debugging my pi jni pigpio
+pigpio signal handling test case
 ===
 
 on raspberry with pigpio sig 11 randomly on alert callbacks from native to jvm
@@ -87,3 +87,6 @@ JNIEXPORT jint JNICALL Java_org_bytedeco_javacpp_pigpio_gpioSetAlertFuncEx(JNIEn
 }
 ```
 /tmp/javacpp-presets/pigpio/target/classes/org/bytedeco/javacpp/jnipigpio.cpp
+
+### again
+- 07/13/2018; have some work-work coming up on the pi, so going to revisit this again :/
