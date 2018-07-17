@@ -10,6 +10,10 @@ ensuing executions result in sigsev within shorter time period
   - eg.  1000 events, 100, 50, 50, 100, 50.. 
   - never again achieves the "stability" of the first execution
 
+### javacpp
+
+use the build script from https://github.com/jw3/javacpp-pigpio
+
 ### tested
 - oracle jvm 8.~90-8.121
 - azul jvm 8.112

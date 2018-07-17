@@ -22,8 +22,8 @@ lazy val commonSettings = Seq(
 
 lazy val commonLibraries = {
   Seq(
-    "com.typesafe.akka" %% "akka-actor" % "2.4.17",
-    "org.bytedeco" % "javacpp" % "1.3.3-SNAPSHOT"
+    "com.typesafe.akka" %% "akka-actor" % "2.5.12",
+    "org.bytedeco" % "javacpp" % "1.4.1"
   )
 }
 
