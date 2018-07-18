@@ -13,13 +13,12 @@ object Boot extends App {
       println(s"Initialized pigpio")
 
       TestPigpio.listen(4)
-      system.scheduler.schedule(5.seconds, 2.millis) {
+      system.scheduler.schedule(1.second, 1.milli) {
         TestPigpio.publish(3);
       }
-
-      system.scheduler.scheduleOnce(1.hour) { system.terminate }
     case v ⇒
       println(s"Failed to init pigpio [$v]")
       system.terminate()
+      System.exit(1)
   }
 }
