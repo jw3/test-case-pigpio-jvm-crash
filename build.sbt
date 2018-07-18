@@ -29,7 +29,7 @@ lazy val commonLibraries = {
 
 lazy val `white-whale` =
   project.in(file("."))
-  .aggregate(`javacpp-test-case`, `sbt-jni-sandbox`, `pigpio-jni`)
+  .aggregate(`javacpp-test-case`, `sbt-jni-sandbox`, `pigpio-jni`, `simple-test`)
   .settings(commonSettings: _*)
 
 lazy val `javacpp-test-case` =
@@ -48,6 +48,15 @@ lazy val `sbt-jni-sandbox` =
 
 lazy val `pigpio-jni` =
   project.in(file("pigpio-jni"))
+  .settings(commonSettings: _*)
+  .settings(
+    libraryDependencies ++= commonLibraries,
+    target in javah := baseDirectory.value / "src" / "native" / "include"
+  )
+  .enablePlugins(JniNative)
+
+lazy val `simple-test` =
+  project.in(file("simple-test"))
   .settings(commonSettings: _*)
   .settings(
     libraryDependencies ++= commonLibraries,
