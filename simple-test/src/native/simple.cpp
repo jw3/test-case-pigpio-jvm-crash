@@ -2,6 +2,8 @@
 #include <jni.h>
 #include <pigpio.h>
 
+#include <com_github_jw3_TestPigpio__.h>
+
 // from: https://github.com/joan2937/pigpio/issues/138#issue-237028730
 
 void interrupt_s(int gpio, int level, uint32_t tick)
