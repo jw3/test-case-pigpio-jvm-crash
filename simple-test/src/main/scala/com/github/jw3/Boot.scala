@@ -4,24 +4,22 @@ import akka.actor.ActorSystem
 
 import scala.concurrent.duration.DurationInt
 
-
 object Boot extends App {
   val system = ActorSystem()
   import system.dispatcher
 
-  val res =
-    TestPigpio.init() match {
-      case 1 ⇒
-        println(s"Initialized pigpio")
+  TestPigpio.init() match {
+    case 1 ⇒
+      println(s"Initialized pigpio")
 
-        TestPigpio.listen(4)
-        system.scheduler.schedule(5.seconds, 2.millis) {
-          TestPigpio.publish(3);
-        }
+      TestPigpio.listen(4)
+      system.scheduler.schedule(5.seconds, 2.millis) {
+        TestPigpio.publish(3);
+      }
 
-        system.scheduler.scheduleOnce(1.hour) { system.terminate }
-      case v ⇒
-        println(s"Failed to init pigpio [$v]")
-        system.terminate()
-    }
+      system.scheduler.scheduleOnce(1.hour) { system.terminate }
+    case v ⇒
+      println(s"Failed to init pigpio [$v]")
+      system.terminate()
+  }
 }

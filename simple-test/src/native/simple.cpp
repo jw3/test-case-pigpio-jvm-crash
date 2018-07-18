@@ -5,7 +5,7 @@
 
 #include <com_github_jw3_TestPigpio__.h>
 
-// from: https://github.com/joan2937/pigpio/issues/138#issue-237028730
+// see https://github.com/joan2937/pigpio/issues/138#issue-237028730
 
 static long t = 0;
 static bool v = false;
@@ -21,7 +21,7 @@ void interrupt_s(int gpio, int level, uint32_t tick)
    ++t;
 
    if(!(t % tK))
-     std::cout << t / tK << std::flush;
+     std::cout << t / K << std::flush;
 }
 
 
