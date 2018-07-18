@@ -9,10 +9,19 @@ object Boot extends App {
   val system = ActorSystem()
   import system.dispatcher
 
-  val res = TestPigpio.test(4)
-  println(s"Called test methog, result [$res]")
+  val res =
+    TestPigpio.init() match {
+      case 1 ⇒
+        println(s"Initialized pigpio")
 
-  system.scheduler.scheduleOnce(1.hour) {
-    system.terminate
-  }
+        TestPigpio.listen(4)
+        system.scheduler.schedule(5.seconds, 10.millis) {
+          TestPigpio.publish(3);
+        }
+
+        system.scheduler.scheduleOnce(1.hour) { system.terminate }
+      case v ⇒
+        println(s"Failed to init pigpio [$v]")
+        system.terminate()
+    }
 }

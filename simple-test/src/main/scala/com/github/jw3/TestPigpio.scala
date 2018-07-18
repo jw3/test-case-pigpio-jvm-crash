@@ -4,5 +4,7 @@ import ch.jodersky.jni.nativeLoader
 
 @nativeLoader("simpleone0")
 object TestPigpio {
-  @native def test(pin: Int): Long
+  @native def init(): Long
+  @native def listen(pin: Int)
+  @native def publish(pin: Int)
 }
