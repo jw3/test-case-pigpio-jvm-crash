@@ -1,3 +1,4 @@
+#include <iostream>
 #include <stdint.h>
 #include <jni.h>
 #include <pigpio.h>
@@ -6,11 +7,11 @@
 
 // from: https://github.com/joan2937/pigpio/issues/138#issue-237028730
 
+static long t = 0;
+
 void interrupt_s(int gpio, int level, uint32_t tick)
 {
-   /*
-      Callback does nothing
-   */
+   if(!(t++ % 1000)) std::cout << "." << std::flush;
 }
 
 
