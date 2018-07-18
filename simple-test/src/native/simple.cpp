@@ -24,23 +24,6 @@ void interrupt_s(int gpio, int level, uint32_t tick)
      std::cout << t / K << std::flush;
 }
 
-
-JNIEXPORT jlong JNICALL Java_com_github_jw3_TestPigpio_00024_test
-  (JNIEnv *env, jobject obj, jint pin)
-{
-	//Initialize PIGPIO library
-	if (gpioInitialise() < 0) {
-		return 0;
-	}
-        // Set a single pin as input
-	gpioSetMode(pin, PI_INPUT);
-	gpioSetPullUpDown(pin, PI_PUD_DOWN);
-	   /* monitor pin level changes */
-	gpioSetAlertFunc(pin, interrupt_s);
-	return 1;
-}
-
-
 JNIEXPORT jlong JNICALL Java_com_github_jw3_TestPigpio_00024_init
   (JNIEnv *env, jobject obj)
 {
