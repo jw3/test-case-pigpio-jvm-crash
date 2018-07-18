@@ -10,9 +10,18 @@
 static long t = 0;
 static bool v = false;
 
+const int K = 1000;
+const int tK = 10 * K;
+
 void interrupt_s(int gpio, int level, uint32_t tick)
 {
-   if(!(t++ % 1000)) std::cout << "." << std::flush;
+   if(!(t % K))
+     std::cout << "." << std::flush;
+
+   ++t;
+
+   if(!(t % tK))
+     std::cout << t / tK << std::flush;
 }
 
 

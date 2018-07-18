@@ -15,7 +15,7 @@ object Boot extends App {
         println(s"Initialized pigpio")
 
         TestPigpio.listen(4)
-        system.scheduler.schedule(5.seconds, 10.millis) {
+        system.scheduler.schedule(5.seconds, 2.millis) {
           TestPigpio.publish(3);
         }
 
