@@ -21,9 +21,14 @@ lazy val commonSettings = Seq(
 )
 
 lazy val commonLibraries = {
+  val akkaVersion = "2.5.12"
+  val pigpioVersion = "67.0"
+  val javacppVersion = "1.4.1"
+
   Seq(
-    "com.typesafe.akka" %% "akka-actor" % "2.5.12",
-    "org.bytedeco" % "javacpp" % "1.4.1"
+    "org.bytedeco" % "javacpp" % javacppVersion,
+    "com.github.jw3" % "pigpio" % s"$pigpioVersion-$javacppVersion",
+    "com.typesafe.akka" %% "akka-actor" % akkaVersion
   )
 }
 
